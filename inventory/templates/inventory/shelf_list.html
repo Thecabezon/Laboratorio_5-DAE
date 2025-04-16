@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Estanterías</h2>
+<div class="shelf-list">
+    {% for shelf in shelves %}
+    <div class="shelf-item">
+        <h3>{{ shelf.name }}</h3>
+        <p>Ubicación: {{ shelf.location }}</p>
+        <p>Capacidad: {{ shelf.capacity }}</p>
+        <p>Espacio disponible: {{ shelf.available_space }}</p>
+        <a href="{% url 'inventory:shelf-detail' shelf.pk %}">Ver detalles</a>
+    </div>
+    {% empty %}
+    <p>No hay estanterías registradas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

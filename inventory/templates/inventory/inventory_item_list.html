@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Inventario</h2>
+
+<form method="get" class="search-form">
+    {{ search_form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+<table class="inventory-table">
+    <thead>
+        <tr>
+            <th>Libro</th>
+            <th>Estantería</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.book.title }}</td>
+            <td>{{ item.shelf.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.get_condition_display }}</td>
+            <td>
+                {% if item.needs_restock %}
+                <span class="warning">Necesita reposición</span>
+                {% else %}
+                <span class="ok">OK</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay items en el inventario.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
